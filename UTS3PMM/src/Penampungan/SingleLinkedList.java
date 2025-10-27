@@ -49,7 +49,7 @@ public class SingleLinkedList {
         return null;
     }
 
-    public List<Mahasiswa> getAllDataSorted(boolean sortByNim) {
+    public List<Mahasiswa> getAllDataSorted(String criteria) { // <-- Parameter diubah
         List<Mahasiswa> list = new ArrayList<>();
         Node temp = head;
         while (temp != null) {
@@ -57,10 +57,11 @@ public class SingleLinkedList {
             temp = temp.next;
         }
 
-        if (sortByNim)
-            list.sort(Comparator.comparing(Mahasiswa::getNim));
-        else
+        if (criteria.equals("IPK")) {
             list.sort(Comparator.comparingDouble(Mahasiswa::getIpk).reversed());
+        } else {
+            list.sort(Comparator.comparing(Mahasiswa::getNim));
+        }
 
         return list;
     }
