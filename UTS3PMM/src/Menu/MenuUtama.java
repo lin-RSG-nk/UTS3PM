@@ -143,9 +143,29 @@ public class MenuUtama {
     }
 
     private void tampilkanData() {
-        System.out.println("\n======= DAFTAR MAHASISWA (LinkedList) =======");
+        System.out.println("\nTampilkan data berdasarkan:");
+        System.out.println("1. Sortir berdasarkan NIM");
+        System.out.println("2. Sortir berdasarkan IPK");
+        System.out.print("Pilih (1/2): ");
+        int sortPilihan = input.nextInt();
+        input.nextLine();
+
+
+        String sortCriteria;
+        if (sortPilihan == 2) {
+            sortCriteria = "IPK";
+        } else {
+            sortCriteria = "NIM";
+            if (sortPilihan != 1) {
+                System.out.println("Pilihan tidak valid, mengurutkan berdasarkan NIM.");
+            }
+        }
+
+        System.out.println("\n======= DAFTAR MAHASISWA (LinkedList) [Sort by " + sortCriteria + "] =======");
         long startLinked = System.nanoTime();
-        List<Mahasiswa> dataLinked = linkedList.getAllDataSorted(true);
+
+        List<Mahasiswa> dataLinked = linkedList.getAllDataSorted(sortCriteria);
+
         long endLinked = System.nanoTime();
 
         if (dataLinked.isEmpty()) {
@@ -157,9 +177,11 @@ public class MenuUtama {
         }
         System.out.println("Waktu proses display (LinkedList): " + (endLinked - startLinked) + " ns");
 
-        System.out.println("\n======= DAFTAR MAHASISWA (ArrayList) =======");
+        System.out.println("\n======= DAFTAR MAHASISWA (ArrayList) [Sort by " + sortCriteria + "] =======");
         long startArray = System.nanoTime();
-        bagianArrayList.TampilkanData();
+
+        bagianArrayList.TampilkanData(sortCriteria);
+
         long endArray = System.nanoTime();
         System.out.println("Waktu proses display (ArrayList): " + (endArray - startArray) + " ns");
     }
